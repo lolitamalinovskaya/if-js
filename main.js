@@ -88,3 +88,42 @@ for (let i=0; i<arr5.length; i++) {
   arr5[i] = arr5[i].toString().replaceAll('0','zero');
 }
 console.log(arr5);
+
+
+const sum = (arg1) => {
+    return (arg2) => {
+        arg1 += arg2;
+        return arg1;
+    }
+}
+console.log(sum(5)(2));
+
+
+const p1 = document.getElementById('text1');
+const p2 = document.getElementById('text2');
+const p3 = document.getElementById('text3');
+const colors = ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'];
+p1.onclick = color;
+p2.onclick = color;
+p3.onclick = color;
+function color() {
+   const colorCurrent = this.style.backgroundColor;
+   let getResultIndex = getIndexOf(colorCurrent,colors);
+    if (getResultIndex!== -1){
+        this.style.backgroundColor = colors[(getResultIndex+1) % colors.length];
+        return 1;
+    }
+    this.style.backgroundColor = colors[0];
+    return 1;
+}
+function getIndexOf(colorCurrent,colors) {
+    for (let i=0; i<colors.length; i++){
+       if (colorCurrent === colors[i]) {
+           return i;
+       }
+    }
+    return -1;
+}
+
+
+
