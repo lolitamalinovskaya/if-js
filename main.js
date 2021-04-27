@@ -178,4 +178,213 @@ const data = [
         hotel: 'Hotel Rehberge Berlin Mitte',
     },
 ];
-console.log(searchString('Mitte', data));
+console.log(searchString('M', data));
+
+function checkPalindrome(str) {
+return str.split('').reverse().join('') === str;
+}
+console.log(checkPalindrome('poloolop'))
+
+function searchHotels(str, hotels) {
+    let result = hotels.filter(function (e) {
+        return e.country.includes(str) || e.city.includes(str) || e.name.includes(str);
+    }).map(function (e){
+        return e.country + ', ' + e.city +', ' + e.name;
+    })
+    return result;
+}
+const hotels = [
+    {
+        name: 'Hotel Leopold',
+        city: 'Saint Petersburg',
+        country: 'Russia',
+    },
+    {
+        name: 'Apartment Sunshine',
+        city: 'Santa Cruz de Tenerife',
+        country: 'Spain',
+    },
+    {
+        name: 'Villa Kunerad',
+        city: 'Vysokie Tatry',
+        country: 'Slowakia',
+    },
+    {
+        name: 'Hostel Friendship',
+        city: 'Berlin',
+        country: 'Germany',
+    },
+    {
+        name: 'Radisson Blu Hotel',
+        city: 'Kyiv',
+        country: 'Ukraine',
+    },
+    {
+        name: 'Paradise Hotel',
+        city: 'Guadalupe',
+        country: 'Mexico',
+    },
+    {
+        name: 'Hotel Grindewald',
+        city: 'Interlaken',
+        country: 'Switzerland',
+    },
+    {
+        name: 'The Andaman Resort',
+        city: 'Port Dickson',
+        country: 'Malaysia',
+    },
+    {
+        name: 'Virgin Hotel',
+        city: 'Chicago',
+        country: 'USA',
+    },
+    {
+        name: 'Grand Beach Resort',
+        city: 'Dubai',
+        country: 'United Arab Emirates',
+    },
+    {
+        name: 'Shilla Stay',
+        city: 'Seoul',
+        country: 'South Korea',
+    },
+    {
+        name: 'San Firenze Suites',
+        city: 'Florence',
+        country: 'Italy',
+    },
+    {
+        name: 'The Andaman Resort',
+        city: 'Port Dickson',
+        country: 'Malaysia',
+    },
+    {
+        name: 'Black Penny Villas',
+        city: 'BTDC, Nuca Dua',
+        country: 'Indonesia',
+    },
+    {
+        name: 'Koko Hotel',
+        city: 'Tokyo',
+        country: 'Japan',
+    },
+    {
+        name: 'Ramada Plaza',
+        city: 'Istanbul',
+        country: 'Turkey',
+    },
+    {
+        name: 'Waikiki Resort Hotel',
+        city: 'Hawaii',
+        country: 'USA',
+    },
+    {
+        name: 'Puro Hotel',
+        city: 'Krakow',
+        country: 'Poland',
+    },
+    {
+        name: 'Asma Suites',
+        city: 'Santorini',
+        country: 'Greece',
+    },
+    {
+        name: 'Cityden Apartments',
+        city: 'Amsterdam',
+        country: 'Netherlands',
+    },
+    {
+        name: 'Mandarin Oriental',
+        city: 'Miami',
+        country: 'USA',
+    },
+    {
+        name: 'Concept Terrace Hotel',
+        city: 'Rome',
+        country: 'Italy',
+    },
+    {
+        name: 'Ponta Mar Hotel',
+        city: 'Fortaleza',
+        country: 'Brazil',
+    },
+    {
+        name: 'Four Seasons Hotel',
+        city: 'Sydney',
+        country: 'Australia',
+    },
+    {
+        name: 'Le Meridien',
+        city: 'Nice',
+        country: 'France',
+    },
+    {
+        name: 'Apart Neptun',
+        city: 'Gdansk',
+        country: 'Poland',
+    },
+    {
+        name: 'Lux Isla',
+        city: 'Ibiza',
+        country: 'Spain',
+    },
+    {
+        name: 'Nox Hostel',
+        city: 'London',
+        country: 'UK',
+    },
+    {
+        name: 'Leonardo Vienna',
+        city: 'Vienna',
+        country: 'Austria',
+    },
+    {
+        name: 'Adagio Aparthotel',
+        city: 'Edinburgh',
+        country: 'UK',
+    },
+    {
+        name: 'Steigenberger Hotel',
+        city: 'Hamburg',
+        country: 'Germany',
+    },
+];
+console.log(searchHotels('B', hotels));
+
+function getCity (hotels) {
+    let object = {};
+    for(let i=0; i<hotels.length; i++){
+        let currentPair = hotels[i];
+       if (currentPair.country in object) {
+           object[currentPair.country].push(currentPair.city)
+       } else {
+           object[currentPair.country] = [currentPair.city];
+       }
+    }
+   return object;
+}
+console.log(getCity(hotels));
+
+function getCalendarMonth(daysInMonth, daysInWeek, dayOfWeek) {
+    if (dayOfWeek >= daysInWeek)
+        throw Error(`${dayOfWeek} >= ${daysInWeek}`)
+
+    let month = []
+    let x = (daysInWeek - ((daysInMonth + dayOfWeek) % daysInWeek)) % daysInWeek // count of days to complete last week.
+    for (let i = 0; i < daysInMonth + dayOfWeek + x; i++) {
+        if (i % daysInWeek == 0) {
+            month.push([])
+        }
+        let last = month.length - 1
+        if (i < dayOfWeek) {
+            month[last].push(daysInMonth - dayOfWeek + i + 1)
+        } else if (i >= daysInMonth + dayOfWeek) {
+            month[last].push(i % daysInMonth - dayOfWeek + 1)
+        } else {
+            month[last].push(i - dayOfWeek + 1);
+        }
+    }
+    return month;
+}
+console.log(getCalendarMonth(30, 7, 4));
