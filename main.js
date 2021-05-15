@@ -373,7 +373,7 @@ function getCalendarMonth(daysInMonth, daysInWeek, dayOfWeek) {
     let month = []
     let x = (daysInWeek - ((daysInMonth + dayOfWeek) % daysInWeek)) % daysInWeek // count of days to complete last week.
     for (let i = 0; i < daysInMonth + dayOfWeek + x; i++) {
-        if (i % daysInWeek == 0) {
+        if (i % daysInWeek === 0) {
             month.push([])
         }
         let last = month.length - 1
@@ -464,7 +464,7 @@ function getCalendarMonth(daysInMonth, daysInWeek, dayOfWeek, checkInDate, check
     let month = []
     let x = (daysInWeek - ((daysInMonth + dayOfWeek) % daysInWeek)) % daysInWeek // count of days to complete last week.
     for (let i = 0; i < daysInMonth + dayOfWeek + x; i++) {
-        if (i % daysInWeek == 0) {
+        if (i % daysInWeek === 0) {
             month.push([])
         }
         let last = month.length - 1
