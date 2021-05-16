@@ -125,11 +125,12 @@ function getIndexOf(colorCurrent,colors) {
     return -1;
 }
 
+
 let date = '2020-11-26';
 console.log(date.split('-').reverse().join('.'));
 
 function searchString(str, data) {
-    let result = data.filter(function (e){
+    let result = data.filter(function (e) {
         return e.country.includes(str) || e.city.includes(str) || e.hotel.includes(str);
     }).map(function (e){
         return e.country + ', ' + e.city +', ' + e.hotel;
@@ -440,8 +441,31 @@ const students = new Students([
 ]);
 console.log(students.getInfo());
 
+//lesson-9
 
-
-
-
-
+const createColor = () => {
+    return {
+        data: ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'],
+        i: 0,
+        [Symbol.iterator]() {
+            return this;
+        },
+        next() {
+            if (this.i >= this.data.length){
+                this.i = 0;
+            }
+            return {
+                done: false,
+                value: this.data[this.i++],
+            }
+        }
+    }
+}
+const colorIterators = {};
+function onClick(element) {
+    const id = element.id;
+    if(colorIterators[id] === undefined) {
+        colorIterators[id] = createColor();
+    }
+    element.style.backgroundColor = colorIterators[id].next().value;
+}
