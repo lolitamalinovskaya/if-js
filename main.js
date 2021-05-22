@@ -373,7 +373,7 @@ function getCalendarMonth(daysInMonth, daysInWeek, dayOfWeek) {
     let month = []
     let x = (daysInWeek - ((daysInMonth + dayOfWeek) % daysInWeek)) % daysInWeek // count of days to complete last week.
     for (let i = 0; i < daysInMonth + dayOfWeek + x; i++) {
-        if (i % daysInWeek == 0) {
+        if (i % daysInWeek === 0) {
             month.push([])
         }
         let last = month.length - 1
@@ -389,8 +389,110 @@ function getCalendarMonth(daysInMonth, daysInWeek, dayOfWeek) {
 }
 console.log(getCalendarMonth(30, 7, 4));
 
+/*lesson 7*/
+const obj1 = {
+    a: 'a',
+    b: {
+        a: 'a',
+        b: 'b',
+        c: {
+            a: 1,
+        },
+    },
+};
+const obj2 = {
+    b: {
+        c: {
+            a: 1,
+        },
+        b: 'b',
+        a: 'a',
+    },
+    a: 'a',
+};
+const obj3 = {
+    a: {
+        c: {
+            a: 'a',
+        },
+        b: 'b',
+        a: 'a',
+    },
+    b: 'b',
+};
+const deepEqual = (object1, object2) => {
+    let object1_names = Object.getOwnPropertyNames(object1); //obj1_names - Array of children of obj1
+    let object2_names = Object.getOwnPropertyNames(object2);
+    if (object1_names.length != object2_names.length)
+        return false;
+    for (let i = 0; i < object1_names.length; i++) {
+        if (!(object1_names[i] in object2))
+            return false;
+        if (!(object2_names[i] in object1))
+            return false;
+        let object1_value = object1[object1_names[i]];
+        let object2_value = object2[object1_names[i]];
+        if ((typeof object1_value) != (typeof object2_value))
+            return false;
+        if (object1_value instanceof Object) {
+            if (!deepEqual(object1_value, object2_value))
+                return false;
+        } else if (object1_value !== object2_value) return false;
+        object1_value = object1[object2_names[i]];
+        object2_value = object2[object2_names[i]];
+        if ((typeof object1_value) != (typeof object2_value))
+            return false;
+        if (object1_value instanceof Object) {
+            if (!deepEqual(object1_value, object2_value))
+                return false;
+        } else if (object1_value !== object2_value)
+            return false;
+    }
+    return true;
+}
+console.log(deepEqual(obj1,obj2));
+console.log(deepEqual(obj1,obj3));
 
-// lesson-8
+function getCalendarMonth(daysInMonth, daysInWeek, dayOfWeek, checkInDate, checkOutDate) {
+    if (dayOfWeek >= daysInWeek)
+        throw Error(`${dayOfWeek} >= ${daysInWeek}`)
+    if (checkInDate > daysInMonth || checkOutDate > daysInMonth)
+        throw Error('Check in range is invalid')
+    if (checkOutDate < checkInDate)
+        throw Error(`${checkOutDate} < ${checkInDate}`)
+
+    let month = []
+    let x = (daysInWeek - ((daysInMonth + dayOfWeek) % daysInWeek)) % daysInWeek // count of days to complete last week.
+    for (let i = 0; i < daysInMonth + dayOfWeek + x; i++) {
+        if (i % daysInWeek === 0) {
+            month.push([])
+        }
+        let last = month.length - 1
+        if (i < dayOfWeek) {
+            //get last element in array
+            month[last].push({
+                dayOfMonth: daysInMonth - dayOfWeek + i + 1,
+                notCurrentMonth: true,
+                selectedDay: false,
+
+            })
+        } else if (i >= daysInMonth + dayOfWeek) {
+            month[last].push({
+                dayOfMonth: i % daysInMonth - dayOfWeek + 1,
+                notCurrentMonth: true,
+                selectedDay: false,
+            })
+        } else {
+            let date = i - dayOfWeek + 1;
+            month[last].push({
+                dayOfMonth: date,
+                notCurrentMonth: false,
+                selectedDay: (date >= checkInDate && date <= checkOutDate),
+            });
+        }
+    }
+    return month;
+}
 class User {
     constructor(firstName, lastName) {
         this.firstName = firstName;
@@ -423,10 +525,10 @@ class Students {
 }
 Students.prototype.getInfo = function (){
     let sorted = this.students.sort(function (a,b) {
-         return a.course - b.course;
+        return a.course - b.course;
     });
 
-   return sorted.map(function (a) {
+    return sorted.map(function (a) {
         return `${a.fullName} - ${a.courseName}, ${a.course} курс`;
     })
 
@@ -436,7 +538,7 @@ const students = new Students([
     new Student('Ivan', 'Petrov', 1993, 'Java'),
     new Student('Lolita', 'Malinovskaya', 768, 'C++'),
     new Student('Matvei', 'Alekseev', 2001, 'Python'),
-    
+
 ]);
 console.log(students.getInfo());
 
