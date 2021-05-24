@@ -493,4 +493,57 @@ function getCalendarMonth(daysInMonth, daysInWeek, dayOfWeek, checkInDate, check
     }
     return month;
 }
-console.log(getCalendarMonth(30, 7, 4, 17, 21));
+class User {
+    constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+    }
+    get fullName () {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+}
+
+class Student extends User {
+    constructor(firstName, lastName, admissionYear, courseName) {
+        super(firstName, lastName);
+        this.admissionYear = admissionYear;
+        this.courseName = courseName;
+    }
+    get course () {
+
+        let currentYear = new Date().getFullYear();
+        return currentYear - this.admissionYear;
+    }
+}
+
+class Students {
+    constructor(students){
+        this.students = students;
+    }
+}
+Students.prototype.getInfo = function (){
+    let sorted = this.students.sort(function (a,b) {
+        return a.course - b.course;
+    });
+
+    return sorted.map(function (a) {
+        return `${a.fullName} - ${a.courseName}, ${a.course} курс`;
+    })
+
+}
+
+const students = new Students([
+    new Student('Ivan', 'Petrov', 1993, 'Java'),
+    new Student('Lolita', 'Malinovskaya', 768, 'C++'),
+    new Student('Matvei', 'Alekseev', 2001, 'Python'),
+
+]);
+console.log(students.getInfo());
+
+
+
+
+
+
