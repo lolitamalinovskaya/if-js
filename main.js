@@ -573,6 +573,7 @@ function onClick(element) {
     element.style.backgroundColor = colorIterators[id].next().value;
 }*/
 //lesson-10 DOM Используя верстку из первого модуля, сделайте отображение контентв блока "Homes guests loves" из массива.
+
 const data = [
     {
         name: 'Hotel Leopold',
@@ -623,71 +624,36 @@ const data = [
         imageUrl: 'https://res.cloudinary.com/intellectfox/image/upload/v1610379365/fe/the-andaman-resort_d2xksj.jpg',
     },
 ];
+
+const imagesBlock = document.querySelector('.homes_guests_loves_main');
 let imgStart = 0;
 let imgEnd = 4;
-const svgSpites = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-svgSpites.setAttribute('style', 'position: absolute;visibility: hidden;width:0;height: 0;');
-svgSpites.innerHTML =
-    `<symbol id="arrows_right" viewBox="0 0 48 48">
-        <g filter="url(#filter0_d)">
-            <circle cx="24" cy="20" r="20" fill="#F3F3F4"/>
-            <path d="M19.9412 29.8235L26.1 21.6118C26.6333 20.9007 26.6333 19.9229 26.1 19.2118L19.9412 11"
-                  stroke="#383838" stroke-width="2"/>
-        </g>
-        <defs>
-            <filter id="filter0_d" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                <feOffset dy="4"/>
-                <feGaussianBlur stdDeviation="2"/>
-                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-            </filter>
-        </defs>
-    </symbol>
-`;
-
-const sectionHomes = document.createElement('section');
-sectionHomes.setAttribute('class', 'homes_guests_loves col-14 col-md-14');
-document.body.prepend(sectionHomes);
-sectionHomes.before(svgSpites);
-function createSectionHomes() {
-    let html =
-        `<div class="homes_guests_loves_container col-md-14"> 
-          <header class="homes_guests_loves_header_heading120"> 
-                 <h2 class="homes_guests_loves_header_h2 col-sm-6"> Homes guests loves</h2> 
-          </header>
-        <main class="homes_guests_loves_main col-14 col-md-14">`;
-    for (let i = imgStart; i < imgEnd; i++) {
-        html +=
+function create () {
+    imagesBlock.innerHTML =
+        `<div class="arrow_position_right" onclick="spinner()">
+                    <svg class="arrow_right">
+                           <use href="#arrows_right"/>
+                    </svg>
+        </div>`;
+    for (let i = imgStart; i < imgEnd ; i++) {
+        imagesBlock.innerHTML +=
             `<figure class="hotel_leopold appartment_sunshine villa_kunerad hostel_friendship"> 
             <img src="${data[i].imageUrl}"> 
             <figcaption class="homes_guests_loves_main_name_hotel"> ${data[i].name} </figcaption> 
             <figcaption class="homes_guests_loves_main_name_place"> ${data[i].city}, ${data[i].country} </figcaption>
-        </figure> `
+        </figure> `;
     }
-    html +=
-        `<div onclick="spinnerImg()" class="arrow_position_right">
-                <svg class="arrow_right"> 
-                      <use href="#arrows_right"/>
-                </svg>
-        </div>
-        </main>
-        </div>`;
-    sectionHomes.innerHTML = html;
 }
-createSectionHomes();
-const spinnerImg = () => {
+create();
+const spinner = () => {
     if(imgStart == 4) {
-        imgStart = 0;
+       imgStart = 0;
         imgEnd = 4;
-    }
-    else {
+    } else {
         imgStart = 4;
         imgEnd = 8;
     }
-    createSectionHomes();
+    create();
 };
-console.log(document);
+
+
