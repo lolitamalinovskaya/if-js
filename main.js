@@ -625,35 +625,41 @@ const data = [
     },
 ];
 
-const imagesBlock = document.querySelector('.homes_guests_loves_main');
+const imagesBlock = document.querySelector('.images_container');
+const hotelsName = document.querySelector('.hotels_name_container')
 let imgStart = 0;
 let imgEnd = 4;
-function create () {
-    imagesBlock.innerHTML =
-        `<div class="arrow_position_right" onclick="spinner()">
-                    <svg class="arrow_right">
-                           <use href="#arrows_right"/>
-                    </svg>
-        </div>`;
+let imgCount = 4;
+function createBlock () {
+   imagesBlock.innerHTML = ``;
+   hotelsName.innerHTML = ``;
     for (let i = imgStart; i < imgEnd ; i++) {
         imagesBlock.innerHTML +=
-            `<figure class="hotel_leopold appartment_sunshine villa_kunerad hostel_friendship"> 
-            <img src="${data[i].imageUrl}"> 
-            <figcaption class="homes_guests_loves_main_name_hotel"> ${data[i].name} </figcaption> 
-            <figcaption class="homes_guests_loves_main_name_place"> ${data[i].city}, ${data[i].country} </figcaption>
-        </figure> `;
+        `<img src="${data[i].imageUrl}" class="images"> 
+             <div class="arrow_position_right" onclick="spinner()">
+                    <svg class="arrow_right">
+                        <use href="#arrows_right"/>
+                    </svg>
+            </div>`;
+        hotelsName.innerHTML += `
+        <div class="hotel_leopold appartment_sunshine villa_kunerad hostel_friendship">
+            <p class="homes_guests_loves_main_name_hotel"> ${data[i].name} </p> 
+            <p class="homes_guests_loves_main_name_place"> ${data[i].city}, ${data[i].country} </p>
+        </div>
+        `;
     }
 }
-create();
+createBlock();
 const spinner = () => {
-    if(imgStart == 4) {
+    if(imgEnd >= data.length) {
        imgStart = 0;
-        imgEnd = 4;
+       imgEnd = imgCount;
     } else {
-        imgStart = 4;
-        imgEnd = 8;
-    }
-    create();
+        imgStart = imgEnd;
+        imgEnd += imgCount;
+    } if (imgEnd > data.length)
+        imgEnd=data.length;
+    createBlock();
 };
 
 
