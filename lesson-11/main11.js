@@ -2,7 +2,7 @@
 
 let clickFilter = document.querySelector('#information_about_order');
 let windowForSelection = document.querySelector('.window_for_choose_room');
-clickFilter.addEventListener('click', (event) => {
+clickFilter.addEventListener('click', () => {
     windowForSelection.style.cssText = `visibility : visible`;
 });
 //на плюс минус increase // decrease
@@ -18,9 +18,9 @@ function updateLabels () {
     document.querySelector('#counter_rooms').innerHTML = `${countRooms}`
 }
 let decreaseAdults = document.querySelector('.decrease_adults');
-decreaseAdults.addEventListener('click', (evt => (changeAdults(-1))));
+decreaseAdults.addEventListener('click', () => (changeAdults(-1)));
 let increaseAdults = document.querySelector('.increase_adults');
-increaseAdults.addEventListener('click', (evt => (changeAdults(1))));
+increaseAdults.addEventListener('click', () => (changeAdults(1)));
 
 /* show children years*/
 let selectChildrenText = document.querySelector('.children_age');
@@ -58,16 +58,16 @@ function updateChildrenList() {
 }
 
 let decreaseChildren = document.querySelector('.decrease_children');
-decreaseChildren.addEventListener('click', (evt => (changeChildren(-1))));
+decreaseChildren.addEventListener('click', () => (changeChildren(-1)));
 let increaseChildren = document.querySelector('.increase_children');
-increaseChildren.addEventListener('click', (ev) => {
+increaseChildren.addEventListener('click', () => {
   changeChildren(1);
 });
 
 let decreaseRooms = document.querySelector('.decrease_rooms');
-decreaseRooms.addEventListener('click', (evt => (changeRooms(-1))));
+decreaseRooms.addEventListener('click', () => (changeRooms(-1)));
 let increaseRooms = document.querySelector('.increase_rooms');
-increaseRooms.addEventListener('click', (evt => (changeRooms(1))));
+increaseRooms.addEventListener('click', () => (changeRooms(1)));
 
 function changeAdults (value) {
     countAdults += value;
