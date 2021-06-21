@@ -22,14 +22,28 @@ decreaseAdults.addEventListener('click', () => (changeAdults(-1)));
 let increaseAdults = document.querySelector('.increase_adults');
 increaseAdults.addEventListener('click', () => (changeAdults(1)));
 
-/* show children years*/
-let selectChildrenText = document.querySelector('.children_age');
+function changeColorAdults() {
+    if (countAdults === 0) {
+        increaseAdults.style.cssText = "color: #CECECE; border-color: #CECECE;";
+        decreaseAdults.style.cssText = "color: #CECECE; border-color: #CECECE;";
+    } else {
+        decreaseAdults.style.cssText = "color: #3077C6; border-color: #3077C6;";
+        increaseAdults.style.cssText = "color: #3077C6; border-color: #3077C6;";
+    }
+}
 
+/* show children years*/
+
+let selectChildrenText = document.querySelector('.children_age');
 function updateChildrenList() {
     if (countChildren === 0) {
         selectChildrenText.style.display = "none";
+        increaseChildren.style.cssText = "color: #CECECE; border-color: #CECECE;";
+        decreaseChildren.style.cssText = "color: #CECECE; border-color: #CECECE;";
     } else {
         selectChildrenText.style.display = "";
+        decreaseChildren.style.cssText = "color: #3077C6; border-color: #3077C6;";
+        increaseChildren.style.cssText = "color: #3077C6; border-color: #3077C6;";
     }
     let list = '';
     for (let i = 0; i < countChildren; i++) {
@@ -60,25 +74,34 @@ function updateChildrenList() {
 let decreaseChildren = document.querySelector('.decrease_children');
 decreaseChildren.addEventListener('click', () => (changeChildren(-1)));
 let increaseChildren = document.querySelector('.increase_children');
-increaseChildren.addEventListener('click', () => {
-  changeChildren(1);
-});
+increaseChildren.addEventListener('click', () => (changeChildren(1)));
 
 let decreaseRooms = document.querySelector('.decrease_rooms');
 decreaseRooms.addEventListener('click', () => (changeRooms(-1)));
 let increaseRooms = document.querySelector('.increase_rooms');
 increaseRooms.addEventListener('click', () => (changeRooms(1)));
 
-function changeAdults (value) {
+function changeColorRooms() {
+    if (countRooms === 0) {
+        increaseRooms.style.cssText = "color: #CECECE; border-color: #CECECE;";
+        decreaseRooms.style.cssText = "color: #CECECE; border-color: #CECECE;";
+    } else {
+        decreaseRooms.style.cssText = "color: #3077C6; border-color: #3077C6;";
+        increaseRooms.style.cssText = "color: #3077C6; border-color: #3077C6;";
+    }
+}
+
+function changeAdults(value) {
     countAdults += value;
-    if(countAdults < 0) countAdults = 0;
-    if(countAdults >= 30) countAdults = 30;
+    if (countAdults < 0) countAdults = 0;
+    if (countAdults >= 30) countAdults = 30;
     updateLabels();
+    changeColorAdults();
 }
 function changeChildren (value) {
     countChildren += value;
     if(countChildren < 0) countChildren = 0;
-    if(countChildren >= 10) countChildren = 10;
+    if(countChildren >= 10)  countChildren = 10;
     updateLabels();
     updateChildrenList();
 }
@@ -87,6 +110,7 @@ function changeRooms (value) {
     if (countRooms < 0) countRooms = 0;
     if(countRooms >= 30) countRooms = 30;
     updateLabels();
+    changeColorRooms();
 }
 updateLabels();
-updateChildrenList();
+

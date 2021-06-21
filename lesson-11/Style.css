@@ -316,15 +316,19 @@ body {
     padding-bottom: 12px;
 }
 
-.button_for_choose {
+.decrease_rooms, .decrease_children,
+.decrease_adults, .increase_rooms,
+.increase_adults, .increase_children {
     width: 30px;
     height: 30px;
     background: #FFFFFF;
-    border: 1px solid var(--primary);
+    border: 1px solid #CECECE;
     box-sizing: border-box;
     font: 400 18px Roboto;
-    color: var(--primary);
+    color: #CECECE;
+
 }
+
 .counter {
     margin: 0 20px;
 }
