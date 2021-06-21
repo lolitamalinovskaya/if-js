@@ -23,7 +23,7 @@ let increaseAdults = document.querySelector('.increase_adults');
 increaseAdults.addEventListener('click', () => (changeAdults(1)));
 
 function changeColorAdults() {
-    if (countAdults === 0) {
+    if (countAdults === 0 || countAdults === 30) {
         increaseAdults.style.cssText = "color: #CECECE; border-color: #CECECE;";
         decreaseAdults.style.cssText = "color: #CECECE; border-color: #CECECE;";
     } else {
@@ -36,14 +36,10 @@ function changeColorAdults() {
 
 let selectChildrenText = document.querySelector('.children_age');
 function updateChildrenList() {
-    if (countChildren === 0) {
+    if (countChildren === 0)  {
         selectChildrenText.style.display = "none";
-        increaseChildren.style.cssText = "color: #CECECE; border-color: #CECECE;";
-        decreaseChildren.style.cssText = "color: #CECECE; border-color: #CECECE;";
     } else {
         selectChildrenText.style.display = "";
-        decreaseChildren.style.cssText = "color: #3077C6; border-color: #3077C6;";
-        increaseChildren.style.cssText = "color: #3077C6; border-color: #3077C6;";
     }
     let list = '';
     for (let i = 0; i < countChildren; i++) {
@@ -70,6 +66,15 @@ function updateChildrenList() {
     }
     document.querySelector("#children_list").innerHTML = list;
 }
+function changeColorChildren() {
+    if (countChildren === 0 || countChildren === 10) {
+        increaseChildren.style.cssText = "color: #CECECE; border-color: #CECECE;";
+        decreaseChildren.style.cssText = "color: #CECECE; border-color: #CECECE;";
+    } else {
+        decreaseChildren.style.cssText = "color: #3077C6; border-color: #3077C6;";
+        increaseChildren.style.cssText = "color: #3077C6; border-color: #3077C6;";
+    }
+}
 
 let decreaseChildren = document.querySelector('.decrease_children');
 decreaseChildren.addEventListener('click', () => (changeChildren(-1)));
@@ -82,7 +87,7 @@ let increaseRooms = document.querySelector('.increase_rooms');
 increaseRooms.addEventListener('click', () => (changeRooms(1)));
 
 function changeColorRooms() {
-    if (countRooms === 0) {
+    if (countRooms === 0 || countRooms === 30) {
         increaseRooms.style.cssText = "color: #CECECE; border-color: #CECECE;";
         decreaseRooms.style.cssText = "color: #CECECE; border-color: #CECECE;";
     } else {
@@ -104,6 +109,7 @@ function changeChildren (value) {
     if(countChildren >= 10)  countChildren = 10;
     updateLabels();
     updateChildrenList();
+    changeColorChildren();
 }
 function changeRooms (value) {
     countRooms += value;
