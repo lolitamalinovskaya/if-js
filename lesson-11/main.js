@@ -10,13 +10,14 @@ let countAdults = 0;
 let countChildren = 0;
 let countRooms = 0;
 
-function updateLabels () {
+function updateLabels() {
     document.querySelector('#information_about_order').value =
-    `     ${countAdults} Adults - ${countChildren} Children - ${countRooms} Rooms`
+        `     ${countAdults} Adults - ${countChildren} Children - ${countRooms} Rooms`
     document.querySelector('#counter_adults').innerHTML = `${countAdults}`
     document.querySelector('#counter_children').innerHTML = `${countChildren}`
     document.querySelector('#counter_rooms').innerHTML = `${countRooms}`
 }
+
 let decreaseAdults = document.querySelector('.decrease_adults');
 decreaseAdults.addEventListener('click', () => (changeAdults(-1)));
 let increaseAdults = document.querySelector('.increase_adults');
@@ -35,8 +36,9 @@ function changeColorAdults() {
 /* show children years*/
 
 let selectChildrenText = document.querySelector('.children_age');
+
 function updateChildrenList() {
-    if (countChildren === 0)  {
+    if (countChildren === 0) {
         selectChildrenText.style.display = "none";
     } else {
         selectChildrenText.style.display = "";
@@ -66,6 +68,7 @@ function updateChildrenList() {
     }
     document.querySelector("#children_list").innerHTML = list;
 }
+
 function changeColorChildren() {
     if (countChildren === 0 || countChildren === 10) {
         increaseChildren.style.cssText = "color: #CECECE; border-color: #CECECE;";
@@ -103,20 +106,23 @@ function changeAdults(value) {
     updateLabels();
     changeColorAdults();
 }
-function changeChildren (value) {
+
+function changeChildren(value) {
     countChildren += value;
-    if(countChildren < 0) countChildren = 0;
-    if(countChildren >= 10)  countChildren = 10;
+    if (countChildren < 0) countChildren = 0;
+    if (countChildren >= 10) countChildren = 10;
     updateLabels();
     updateChildrenList();
     changeColorChildren();
 }
-function changeRooms (value) {
+
+function changeRooms(value) {
     countRooms += value;
     if (countRooms < 0) countRooms = 0;
-    if(countRooms >= 30) countRooms = 30;
+    if (countRooms >= 30) countRooms = 30;
     updateLabels();
     changeColorRooms();
 }
+
 updateLabels();
 

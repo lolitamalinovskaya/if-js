@@ -4,14 +4,14 @@
     font-family: Roboto;
     font-weight: 400;
     font-style: normal;
-    src: url("fonts/Roboto_400_latin.woff2") format('woff2');
+    src: url("fonts/Roboto-400-l.woff2") format('woff2');
 }
 
 @font-face {
     font-family: Roboto;
     font-weight: 500;
     font-style: normal;
-    src: url("fonts/Roboto_500_latin.woff2") format('woff2');
+    src: url("fonts/Roboto-500-l.woff2") format('woff2');
 }
 
 :root {
