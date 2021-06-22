@@ -573,7 +573,7 @@ function onClick(element) {
     element.style.backgroundColor = colorIterators[id].next().value;
 }*/
 //lesson-10 DOM Используя верстку из первого модуля, сделайте отображение контентв блока "Homes guests loves" из массива.
-
+/*
 const data = [
     {
         name: 'Hotel Leopold',
@@ -652,8 +652,52 @@ const spinner = () => {
         imgStart = imgEnd;
         imgEnd += imgCount;
     } if (imgEnd > data.length)
-        imgEnd=data.length;
+        imgEnd = data.length;
     createBlock();
 };
+*/
 
+/*
+lesson 12 перенести
+Используя верстку из первого модуля,
+    получите и отобразите контент блока "Homes guests loves" на основе данных,
+    полученных с помощью fetch по url https://fe-student-api.herokuapp.com/api/hotels/popular.
 
+*/
+
+const data1 = fetch('https://fe-student-api.herokuapp.com/api/hotels/popular')
+    .then(response => response.json())
+    .then(data => {createBlock(data)/*; spinner(data)*/})
+    .catch(err => {
+        console.log('Fetch Error :-S', err);
+    });
+const hotelsName = document.querySelector('.hotels_name_container')
+let imgStart = 0;
+let imgEnd = 4;
+let imgCount = 4;
+function createBlock (data) {
+    hotelsName.innerHTML = ``;
+    for (let i = imgStart; i < imgEnd ; i++) {
+        hotelsName.innerHTML += `
+        <div class="hotels_card">
+            <img src="${data[i].imageUrl}" class="images"> 
+            <p class="homes_guests_loves_main_name_hotel"> ${data[i].name} </p> 
+            <p class="homes_guests_loves_main_name_place"> ${data[i].city}, ${data[i].country} </p>
+        </div>
+        `;
+    }
+}
+createBlock();
+const spinnerPosition = document.querySelector('.arrow_position_right');
+spinnerPosition.addEventListener('click', evt => (spinner()));
+const spinner = (data) => {
+    if(imgEnd >= data.length) {
+        imgStart = 0;
+        imgEnd = imgCount;
+    } else {
+        imgStart = imgEnd;
+        imgEnd += imgCount;
+    } if (imgEnd > data.length)
+        imgEnd = data.length;
+    createBlock();
+};
