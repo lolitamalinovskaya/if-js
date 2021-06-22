@@ -665,17 +665,34 @@ lesson 12 перенести
 
 */
 
-const data1 = fetch('https://fe-student-api.herokuapp.com/api/hotels/popular')
-    .then(response => response.json())
-    .then(data => {createBlock(data)/*; spinner(data)*/})
-    .catch(err => {
-        console.log('Fetch Error :-S', err);
-    });
-const hotelsName = document.querySelector('.hotels_name_container')
+const spinnerPosition = document.querySelector('.arrow_position_right');
+const hotelsName = document.querySelector('.hotels_name_container');
+
 let imgStart = 0;
 let imgEnd = 4;
 let imgCount = 4;
+let fetchedData = [];
+
+ fetch('https://fe-student-api.herokuapp.com/api/hotels/popular')
+    .then(response => response.json())
+    .then(data => {createBlock(data); spinner(data)})
+    .catch(err => {
+        console.log('Fetch Error :-S', err);
+    });
+const spinner = (data) => {
+    if(imgEnd >= data.length) {
+        imgStart = 0;
+        imgEnd = imgCount;
+    } else {
+        imgStart = imgEnd;
+        imgEnd += imgCount;
+    } if (imgEnd > data.length)
+        imgEnd = data.length;
+        createBlock(data);
+};
+
 function createBlock (data) {
+    fetchedData = data;
     hotelsName.innerHTML = ``;
     for (let i = imgStart; i < imgEnd ; i++) {
         hotelsName.innerHTML += `
@@ -687,17 +704,7 @@ function createBlock (data) {
         `;
     }
 }
-createBlock();
-const spinnerPosition = document.querySelector('.arrow_position_right');
-spinnerPosition.addEventListener('click', evt => (spinner()));
-const spinner = (data) => {
-    if(imgEnd >= data.length) {
-        imgStart = 0;
-        imgEnd = imgCount;
-    } else {
-        imgStart = imgEnd;
-        imgEnd += imgCount;
-    } if (imgEnd > data.length)
-        imgEnd = data.length;
-    createBlock();
-};
+spinnerPosition.addEventListener('click', () => (spinner(fetchedData)));
+
+
+
