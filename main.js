@@ -664,7 +664,7 @@ lesson 12 перенести
     полученных с помощью fetch по url https://fe-student-api.herokuapp.com/api/hotels/popular.
 
 */
-
+/*
 const spinnerPosition = document.querySelector('.arrow_position_right');
 const hotelsName = document.querySelector('.hotels_name_container');
 
@@ -675,7 +675,7 @@ let fetchedData = [];
 
  fetch('https://fe-student-api.herokuapp.com/api/hotels/popular')
     .then(response => response.json())
-    .then(data => {createBlock(data); spinner(data)})
+    .then(data => createBlock(data))
     .catch(err => {
         console.log('Fetch Error :-S', err);
     });
@@ -705,6 +705,59 @@ function createBlock (data) {
     }
 }
 spinnerPosition.addEventListener('click', () => (spinner(fetchedData)));
+*/
+/*lesson-13
+Сократите количество запросов к серверу. Для этого вам нужно:
+  перед выполнением запроса проверить, есть ли у вас уже данные в sessionStorage, которые хотите получить;
+если нет, то необходимо выполнить AJAX-запрос и полученные данные сохранить в sessionStorage;
+если есть, то использовать данные из sessionStorage и не выполнять запрос к серверу для получения этих данных.*/
+const spinnerPosition = document.querySelector('.arrow_position_right');
+const hotelsName = document.querySelector('.hotels_name_container');
 
+let imgStart = 0;
+let imgEnd = 4;
+let imgCount = 4;
+let fetchedData = [];
+
+if (sessionStorage.getItem('data' ) == null) {
+    fetch('https://fe-student-api.herokuapp.com/api/hotels/popular')
+        .then(response => response.json())
+        .then(data => {
+            sessionStorage.setItem('data', JSON.stringify(data));
+            createBlock(data)
+        })
+        .catch(err => {
+            console.log('Fetch Error :-S', err);
+        });
+} else {
+    createBlock(JSON.parse(sessionStorage.getItem('data')));
+}
+
+const spinner = (data) => {
+    if(imgEnd >= data.length) {
+        imgStart = 0;
+        imgEnd = imgCount;
+    } else {
+        imgStart = imgEnd;
+        imgEnd += imgCount;
+    } if (imgEnd > data.length)
+        imgEnd = data.length;
+    createBlock(data);
+};
+
+function createBlock (data) {
+    fetchedData = data;
+    hotelsName.innerHTML = ``;
+    for (let i = imgStart; i < imgEnd ; i++) {
+        hotelsName.innerHTML += `
+        <div class="hotels_card">
+            <img src="${data[i].imageUrl}" class="images"> 
+            <p class="homes_guests_loves_main_name_hotel"> ${data[i].name} </p> 
+            <p class="homes_guests_loves_main_name_place"> ${data[i].city}, ${data[i].country} </p>
+        </div>
+        `;
+    }
+}
+spinnerPosition.addEventListener('click', evt => (spinner(fetchedData)));
 
 
