@@ -711,7 +711,7 @@ spinnerPosition.addEventListener('click', () => (spinner(fetchedData)));
   перед выполнением запроса проверить, есть ли у вас уже данные в sessionStorage, которые хотите получить;
 если нет, то необходимо выполнить AJAX-запрос и полученные данные сохранить в sessionStorage;
 если есть, то использовать данные из sessionStorage и не выполнять запрос к серверу для получения этих данных.*/
-const spinnerPosition = document.querySelector('.arrow_position_right');
+/*const spinnerPosition = document.querySelector('.arrow_position_right');
 const hotelsName = document.querySelector('.hotels_name_container');
 
 let imgStart = 0;
@@ -759,5 +759,20 @@ function createBlock (data) {
     }
 }
 spinnerPosition.addEventListener('click', evt => (spinner(fetchedData)));
+*/
+/* lesson-14 Working with files Сделайте форму, которая будет отправлять файл по url https://fe-student-api.herokuapp.com/api/file.
+Метод запроса – POST. Тип передаваемых данных – multipart/form-data. Тип ответа – application/json. name в input должен быть file.
+Полученный результат выведите в консоль.*/
 
+const form = document.getElementById('myForm');
 
+form.addEventListener('submit', async event => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const response = await fetch('https://fe-student-api.herokuapp.com/api/file', {
+        method: 'POST',
+        body: formData,
+    })
+    const responseJSON = await response.json();
+    console.log(responseJSON);
+});
