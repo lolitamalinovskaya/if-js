@@ -92,7 +92,24 @@
 body {
     margin: 0;
 }
-
+/*for lesson-14*/
+#myForm{
+    height: 30px;
+    width: 650px;
+    margin: 25px auto;
+    background-color: #BFBFBF;
+    color: #4D4D4D;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.button-for-form {
+    width: 150px;
+    height: 30px;
+    font: 400 16px Roboto;
+}
+/* The end for lesson-14*/
 .top_wrapper {
 
     box-sizing: border-box;
