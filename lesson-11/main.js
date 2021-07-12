@@ -74,24 +74,24 @@ function updateChildrenList() {
     let list = '';
     for (let i = 0; i < countChildren; i++) {
         list += `<select class = "select_children">
-                        <option>0 years old</option>
-                        <option>1 years old</option>
-                        <option>2 years old</option>
-                        <option>3 years old</option>
-                        <option>4 years old</option>
-                        <option>5 years old</option>
-                        <option>6 years old</option>
-                        <option>7 years old</option>
-                        <option>8 years old</option>
-                        <option>9 years old</option>
-                        <option>10 years old</option>
-                        <option>11 years old</option>
-                        <option>12 years old</option>
-                        <option>13 years old</option>
-                        <option>14 years old</option>
-                        <option>15 years old</option>
-                        <option>16 years old</option>
-                        <option>17 years old</option>
+                        <option age=0>0 years old</option>
+                        <option age=1>1 years old</option>
+                        <option age=2>2 years old</option>
+                        <option age=3>3 years old</option>
+                        <option age=4>4 years old</option>
+                        <option age=5>5 years old</option>
+                        <option age=6>6 years old</option>
+                        <option age=7>7 years old</option>
+                        <option age=8>8 years old</option>
+                        <option age=9>9 years old</option>
+                        <option age=10>10 years old</option>
+                        <option age=11>11 years old</option>
+                        <option age=12>12 years old</option>
+                        <option age=13>13 years old</option>
+                        <option age=14>14 years old</option>
+                        <option age=15>15 years old</option>
+                        <option age=16>16 years old</option>
+                        <option age=17>17 years old</option>
                 </select>`;
     }
     document.querySelector("#children_list").innerHTML = list;
@@ -123,4 +123,53 @@ function changeRooms(value) {
 }
 
 updateLabels();
+
+// lesson-15
+// + Отсортируйте пузырьком данные из блока "Homes guests loves" по полю name.
+// + Используя форму из вашей верстки, сделайте поиск отелей:
+//  + вам нужно работать только с полем "Your destination or hotel name" и полями фильтра (Adults, Children, etc);
+// + запрос GET https://fe-student-api.herokuapp.com/api/hotels;
+// + запрос принимает параметры: search - строка, adults - количество взрослых, children - возраст детей перечислен через запятую, rooms – количество номеров;
+// + из поля формы "Your destination or hotel name" вы должны записать значение в параметр search;
+// из поля формы "Adults" вы должны записать значение в параметр adults;
+// в параметр children вы должны записать через запятую возраст детей из выпадающего списка (если ребенок 1, затяную добавлять не нужно);
+// важное правило – дети не могут путешествовать без взрослых. Это значит, что вы не можете передать параметр children без параметра alults;
+// из поля формы "Rooms" вы должны записать значение в параметр rooms;
+// см. возможные передаваемые значения фильтра здесь
+// пример запроса: https://fe-student-api.herokuapp.com/api/hotels?search=us&adults=2&children=3,10&rooms=2;
+// в ответ вы получите массив;
+// массив из ответа необходимо вывести в блок "Available hotels", который вы добавите сразу после блока "Top-section";
+// дизайн блока "Available hotels" идентичен блоку "Homes guests loves", только имеет заголовок "Available hotels".*/
+const destination = document.getElementById('destination');
+const button = document.getElementById('input-button');
+const sectionAvailable = document.getElementById('section_available_hotels');
+
+button.addEventListener('click', event => {
+
+    let search = destination.value;
+    let adults = countAdults;
+    let rooms = countRooms;
+    let children = Array.from(document.querySelectorAll('.select_children')).map(function (x) {
+        return x.options[x.selectedIndex].getAttribute('age');
+    }).join(',');
+    console.log(children, search, adults, rooms);
+    let body = {'search': search, 'children': children, 'rooms': rooms, 'adults': adults};
+    let url = new URL('https://fe-student-api.herokuapp.com/api/hotels');
+    url.search = new URLSearchParams(body).toString();
+    if (adults === 0 && children.length > 0) {
+        return;
+    }
+     fetch(url, {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => bubbleSort(data))
+        .then(data => { console.log('out: ', data); return data })
+        .then(data => { availableData = data; return data })
+        .then(data => { sectionAvailable.style.cssText = `display : block`; return data })
+        .then(data => createBlock(data, '#available_hotels', availableImgStart, availableImgEnd))
+        .catch(err => {
+            console.log('Fetch Error :-S', err);
+        });
+});
 

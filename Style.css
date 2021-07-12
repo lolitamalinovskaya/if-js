@@ -92,7 +92,7 @@
 body {
     margin: 0;
 }
-/*for lesson-14*/
+/*for lesson-14
 #myForm{
     height: 30px;
     width: 650px;
@@ -109,7 +109,7 @@ body {
     height: 30px;
     font: 400 16px Roboto;
 }
-/* The end for lesson-14*/
+*/
 .top_wrapper {
 
     box-sizing: border-box;
@@ -309,6 +309,75 @@ body {
     border: none;
     outline: none;
 }
+.window_for_choose_room {
+    display: flex;
+    box-sizing: border-box;
+    width: 260px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    position: absolute;
+    top: 590px;
+    right: 295px;
+    font: 400 16px Roboto;
+    visibility: hidden;
+}
+
+.content_of_window{
+    padding: 22px;
+}
+.adults_container, .children_container, .rooms_container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 12px;
+}
+
+.decrease_rooms, .decrease_children,
+.decrease_adults, .increase_rooms,
+.increase_adults, .increase_children {
+    width: 30px;
+    height: 30px;
+    background: #FFFFFF;
+    border: 1px solid #CECECE;
+    box-sizing: border-box;
+    font: 400 18px Roboto;
+    color: #CECECE;
+    outline: none;
+}
+
+.counter {
+    margin: 0 20px;
+}
+.adults {
+    padding-right: 61px;
+}
+.children {
+    padding-right: 48px;
+}
+.rooms {
+    padding-right: 56px;
+}
+
+.children_age {
+    font-size: 12px;
+    line-height: 14px;
+    padding-bottom: 12px;
+}
+#children_list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.select_children {
+    background: #FFFFFF;
+    border: 1px solid var(--primary);
+    box-sizing: border-box;
+    width: 100px;
+    height: 30px;
+    font: 400 12px Roboto;
+    outline: none;
+    margin-bottom: 5px;
+}
 
 .top_section_main_AppStore_GooglePlay {
     display: flex;
@@ -402,6 +471,10 @@ body {
 .what_do_we_offer_main_iconsName {
     padding-top: 55px;
     margin: 0 auto;
+}
+/*available_hotels*/
+#section_available_hotels {
+   display: none;
 }
 
 /*homes_guests_loves*/
