@@ -126,7 +126,10 @@ function getIndexOf(colorCurrent,colors) {
     return -1;
 }
 
-
+/*Сделайте форму, которая будет отправлять файл по url https://fe-student-api.herokuapp.com/api/file.
+ Метод запроса – POST. Тип передаваемых данных – multipart/form-data. Тип ответа – application/json.name в input должен быть file.
+ Полученный результат выведите в консоль.*/
+/*
 let date = '2020-11-26';
 console.log(date.split('-').reverse().join('.'));
 
@@ -571,9 +574,9 @@ function onClick(element) {
         colorIterators[id] = createColor();
     }
     element.style.backgroundColor = colorIterators[id].next().value;
-}*/
+}
 //lesson-10 DOM Используя верстку из первого модуля, сделайте отображение контентв блока "Homes guests loves" из массива.
-/*
+
 const data = [
     {
         name: 'Hotel Leopold',
@@ -762,7 +765,7 @@ spinnerPosition.addEventListener('click', evt => (spinner(fetchedData)));
 */
 /* lesson-14 Working with files Сделайте форму, которая будет отправлять файл по url https://fe-student-api.herokuapp.com/api/file.
 Метод запроса – POST. Тип передаваемых данных – multipart/form-data. Тип ответа – application/json. name в input должен быть file.
-Полученный результат выведите в консоль.*/
+Полученный результат выведите в консоль.
 
 const form = document.getElementById('myForm');
 
@@ -776,3 +779,81 @@ form.addEventListener('submit', async event => {
     const responseJSON = await response.json();
     console.log(responseJSON);
 });
+*/
+// lesson-15
+const spinnerPositionAvailable = document.querySelector('#spinner_available');
+const spinnerPositionAll = document.querySelector('#spinner_all');
+let allImgStart = 0;
+let allImgEnd = 4;
+let availableImgStart = 0;
+let availableImgEnd = 4;
+let imgCount = 4;
+let allData = [];
+let availableData = [];
+
+function bubbleSort (data) {
+    let array = data;
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array.length - i - 1; j++) {
+            if (array[j].name > array[j + 1].name) {
+                let buff = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = buff;
+            }
+        }
+    }
+    return array;
+}
+
+fetch('https://fe-student-api.herokuapp.com/api/hotels/popular')
+    .then(response => response.json())
+    .then(data => bubbleSort(data))
+    .then(data => { console.log('out: ', data); return data })
+    .then(data => { allData = data; return data })
+    .then(data => createBlock(data, '#all_hotels', allImgStart, allImgEnd))
+    .catch(err => {
+        console.log('Fetch Error :-S', err);
+    });
+
+const showAllSpinner = (data) => {
+    if(allImgEnd >= data.length) {
+        allImgStart = 0;
+        allImgEnd = imgCount;
+    } else {
+        allImgStart = allImgEnd;
+        allImgEnd += imgCount;
+    } if (allImgEnd > data.length)
+        allImgEnd = data.length;
+    createBlock(data, '#all_hotels', allImgStart, allImgEnd);
+};
+const showAvailableSpinner = (data) => {
+    if(availableImgEnd >= data.length) {
+        availableImgStart = 0;
+        availableImgEnd = imgCount;
+    } else {
+        availableImgStart = availableImgEnd;
+        availableImgEnd += imgCount;
+    } if (availableImgEnd > data.length)
+        availableImgEnd = data.length;
+    createBlock(data, '#available_hotels', availableImgStart, availableImgEnd);
+};
+
+function createBlock (data,containerId, imgStart, imgEnd) {
+
+    const hotelsName = document.querySelector(containerId);
+    hotelsName.innerHTML = ``;
+    if (imgEnd > data.length) {
+        imgEnd = data.length;
+    }
+    for (let i = imgStart; i < imgEnd ; i++) {
+        hotelsName.innerHTML += `
+        <div class="hotels_card">
+            <img src="${data[i].imageUrl}" class="images"> 
+            <p class="homes_guests_loves_main_name_hotel"> ${data[i].name} </p> 
+            <p class="homes_guests_loves_main_name_place"> ${data[i].city}, ${data[i].country} </p>
+        </div>
+        `;
+    }
+}
+spinnerPositionAll.addEventListener('click', () => (showAllSpinner(allData)));
+spinnerPositionAvailable.addEventListener('click', () => (showAvailableSpinner(availableData)));
